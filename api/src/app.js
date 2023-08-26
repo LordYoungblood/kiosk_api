@@ -16,6 +16,8 @@ const whitelist = [
   "https://localhost:3001",
   "http://vehiclegatekioskui2-env.eba-vgfrxrgp.us-gov-west-1.elasticbeanstalk.com",
   "http://vehiclegatekioskserver576-env.eba-rejckfyi.us-gov-west-1.elasticbeanstalk.com",
+  "http://kioskuideployed-env.eba-x8wte8bp.us-gov-west-1.elasticbeanstalk.com",
+  "https://kioskuideployed-env.eba-x8wte8bp.us-gov-west-1.elasticbeanstalk.com",
 ];
 
 // ----------------- CORS ----------------------------------------------------//
