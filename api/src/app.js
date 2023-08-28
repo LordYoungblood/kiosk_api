@@ -19,6 +19,7 @@ const whitelist = [
   "http://kioskuideployed-env.eba-x8wte8bp.us-gov-west-1.elasticbeanstalk.com",
   "https://kioskuideployed-env.eba-x8wte8bp.us-gov-west-1.elasticbeanstalk.com",
   "http://kioskui-env.eba-pdfzxqmm.us-gov-west-1.elasticbeanstalk.com",
+  "http://kioskfront-env.eba-2mppttjq.us-gov-west-1.elasticbeanstalk.com"
 
 ];
 
