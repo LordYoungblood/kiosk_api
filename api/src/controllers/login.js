@@ -29,30 +29,15 @@ console.log("req.body in loging", req.body)
         domain:
         // "localhost" ||
         // "http://kioskapp-env.eba-umdxbzym.us-gov-west-1.elasticbeanstalk.com/api" ||
-        "http://kioskapp-env.eba-umdxbzym.us-gov-west-1.elasticbeanstalk.com" ||
-        "/",
+        "http://kioskapp-env.eba-umdxbzym.us-gov-west-1.elasticbeanstalk.com",
         path: "/",
         SameSite: "None",
         Secure: true,
       });
-      console.log("token in login", res.cookie);
+      console.log("token in login", res);
       
 
-            // Define the cookie object
-            const cookieObject = {
-              maxAge: 28800000,
-              domain:
-                // "localhost" ||
-                // "http://kioskapp-env.eba-umdxbzym.us-gov-west-1.elasticbeanstalk.com/api" ||
-                "http://kioskapp-env.eba-umdxbzym.us-gov-west-1.elasticbeanstalk.com" ||
-                "/",
-              path: "/",
-              SameSite: "None",
-              Secure: true,
-            };
-            console.log("Cookie object:", cookieObject);
-
-
+//ss
       res.status(200).json({
         token,
         user: user.rows[0],
