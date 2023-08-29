@@ -27,7 +27,7 @@ const login = async (req, res) => {
         maxAge: 28800000,
         domain:
         // "localhost",
-        "http://kioskapp-env.eba-umdxbzym.us-gov-west-1.elasticbeanstalk.com/login", 
+        "http://kioskapp-env.eba-umdxbzym.us-gov-west-1.elasticbeanstalk.com/", 
         // "penis",
         path: 
         "/",
