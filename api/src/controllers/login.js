@@ -6,8 +6,7 @@ const jwt = require("jsonwebtoken");
 //----- user_name: password: admin: true/false -----=------------------------------//
 const login = async (req, res) => {
   const { user_name, password } = req.body;
-
-console.log("req.body in loging", req.body)
+// console.log("req.body in loging", req.body)
   try {
     const user = await client.query(
       `SELECT * FROM users WHERE user_name = '${user_name}'`
@@ -24,25 +23,20 @@ console.log("req.body in loging", req.body)
         expiresIn: process.env.JWT_LIFETIME,
       });
       res.setHeader("Authorization", `Bearer ${token}`);
-
       res.cookie("auth", token, {
         maxAge: 28800000,
         domain:
         // "localhost",
-        // "http://kioskapp-env.eba-umdxbzym.us-gov-west-1.elasticbeanstalk.com/api" ||
-        "http://kioskapp-env.eba-umdxbzym.us-gov-west-1.elasticbeanstalk.com/login",
+        "http://kioskapp-env.eba-umdxbzym.us-gov-west-1.elasticbeanstalk.com/login", 
+        // "penis",
         path: 
         "/",
         SameSite: "None",
         Secure: true,
       });
-      console.log("res in login", res);
-      console.log("req.body in login", req.body)
-      
-
-      
-
-//ss
+      console.log("res in login", res.cookie);
+// console.log("cookie value", cookieValue)
+      // console.log("req.body in login", req.body)
       res.status(200).json({
         token,
         user: user.rows[0],
