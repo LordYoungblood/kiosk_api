@@ -21,7 +21,6 @@ const whitelist = [
   "http://kioskui-env.eba-pdfzxqmm.us-gov-west-1.elasticbeanstalk.com",
   "http://kioskfront-env.eba-2mppttjq.us-gov-west-1.elasticbeanstalk.com",
   "http://kioskapp-env.eba-umdxbzym.us-gov-west-1.elasticbeanstalk.com"
-
 ];
 
 // ----------------- CORS ----------------------------------------------------//
