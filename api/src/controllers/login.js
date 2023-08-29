@@ -27,7 +27,7 @@ const login = async (req, res) => {
         maxAge: 28800000,
         domain:
           "localhost" ||
-          "vehiclegatekioskui2-env.eba-vgfrxrgp.us-gov-west-1.elasticbeanstalk.com",
+          "vehiclegatekioskui2-env.eba-vgfrxrgp.us-gov-west-1.elasticbeanstalk.com" || "http://kioskapp-env.eba-umdxbzym.us-gov-west-1.elasticbeanstalk.com",
         path: "/",
         SameSite: "None",
         Secure: true,
