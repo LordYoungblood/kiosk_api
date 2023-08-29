@@ -15,6 +15,7 @@ console.log("req.body in loging", req.body)
 
     if (!user) {
       return res.status(400).json({ message: "Invalid credentials" });
+      console.log("error")
     }
 
     const isMatch = await bcrypt.compare(password, user.rows[0].password);
@@ -27,14 +28,18 @@ console.log("req.body in loging", req.body)
       res.cookie("auth", token, {
         maxAge: 28800000,
         domain:
-        // "localhost" ||
+        // "localhost",
         // "http://kioskapp-env.eba-umdxbzym.us-gov-west-1.elasticbeanstalk.com/api" ||
-        "http://kioskapp-env.eba-umdxbzym.us-gov-west-1.elasticbeanstalk.com",
-        path: "/",
+        "http://kioskapp-env.eba-umdxbzym.us-gov-west-1.elasticbeanstalk.com/login",
+        path: 
+        "/",
         SameSite: "None",
         Secure: true,
       });
-      console.log("token in login", res);
+      console.log("res in login", res);
+      console.log("req.body in login", req.body)
+      
+
       
 
 //ss
