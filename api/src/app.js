@@ -25,6 +25,8 @@ const whitelist = [
 
 // ----------------- CORS ----------------------------------------------------//
 
+//sighhh
+
 const corsOptions = {
   credentials: true,
   Credential: "include",
