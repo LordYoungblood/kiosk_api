@@ -42,7 +42,7 @@ const corsOptions = {
   },
 };
 
-//-------- DataBase Connection initialization ---------------------------------//
+//-------- DataBase Connection initialization ---------------------------------///
 let retries = 5;
 while (retries) {
   try {
