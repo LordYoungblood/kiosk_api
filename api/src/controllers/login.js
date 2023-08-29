@@ -27,9 +27,9 @@ console.log("req.body in loging", req.body)
       res.cookie("auth", token, {
         maxAge: 28800000,
         domain:
-        "localhost" ||
-        "http://kioskapp-env.eba-umdxbzym.us-gov-west-1.elasticbeanstalk.com/api" ||
-        "http://kioskapp-env.eba-umdxbzym.us-gov-west-1.elasticbeanstalk.com/" ||
+        // "localhost" ||
+        // "http://kioskapp-env.eba-umdxbzym.us-gov-west-1.elasticbeanstalk.com/api" ||
+        "http://kioskapp-env.eba-umdxbzym.us-gov-west-1.elasticbeanstalk.com" ||
         "/",
         path: "/",
         SameSite: "None",
@@ -42,9 +42,9 @@ console.log("req.body in loging", req.body)
             const cookieObject = {
               maxAge: 28800000,
               domain:
-                "localhost" ||
-                "http://kioskapp-env.eba-umdxbzym.us-gov-west-1.elasticbeanstalk.com/api" ||
-                "http://kioskapp-env.eba-umdxbzym.us-gov-west-1.elasticbeanstalk.com/" ||
+                // "localhost" ||
+                // "http://kioskapp-env.eba-umdxbzym.us-gov-west-1.elasticbeanstalk.com/api" ||
+                "http://kioskapp-env.eba-umdxbzym.us-gov-west-1.elasticbeanstalk.com" ||
                 "/",
               path: "/",
               SameSite: "None",
