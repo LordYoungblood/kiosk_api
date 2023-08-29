@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const login = async (req, res) => {
   const { user_name, password } = req.body;
 
+console.log("req.body in loging", req.body)
   try {
     const user = await client.query(
       `SELECT * FROM users WHERE user_name = '${user_name}'`
@@ -27,11 +28,28 @@ const login = async (req, res) => {
         maxAge: 28800000,
         domain:
           "localhost" ||
-          "vehiclegatekioskui2-env.eba-vgfrxrgp.us-gov-west-1.elasticbeanstalk.com" || "http://kioskapp-env.eba-umdxbzym.us-gov-west-1.elasticbeanstalk.com",
+          "http://kioskapp-env.eba-umdxbzym.us-gov-west-1.elasticbeanstalk.com",
         path: "/",
         SameSite: "None",
         Secure: true,
       });
+      console.log("token in login", res.cookie);
+      
+
+            // Define the cookie object
+            const cookieObject = {
+              maxAge: 28800000,
+              domain:
+                "localhost" ||
+                "http://kioskapp-env.eba-umdxbzym.us-gov-west-1.elasticbeanstalk.com",
+              path: "/",
+              SameSite: "None",
+              Secure: true,
+            };
+
+            console.log("Cookie object:", cookieObject);
+
+
       res.status(200).json({
         token,
         user: user.rows[0],
