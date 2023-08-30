@@ -28,11 +28,12 @@ const login = async (req, res) => {
         domain:
         // "localhost",
         "http://kioskapp-env.eba-umdxbzym.us-gov-west-1.elasticbeanstalk.com", 
+        
         // "penis",
         path: 
         "/",
-        SameSite: "None",
-        Secure: true,
+        SameSite: none,
+        Secure: false,
       });
       console.log("res in login", res.cookie);
 // console.log("cookie value", cookieValue)
