@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 const baseController = require("../controllers/basesController");
 
-router.post("/bases", baseController.createBase);
-router.get("/bases", baseController.getAllBases);
-router.get("/bases/:id", baseController.getBaseById);
-router.put("/bases/:id", baseController.updateBase);
-router.delete("/bases/:id", baseController.deleteBase);
+router.post("/", baseController.createBase);
+router.get("/", baseController.getAllBases);
+router.get("/:id", baseController.getBaseById);
+router.put("/:id", baseController.updateBase);
+router.delete("/:id", baseController.deleteBase);
 
 module.exports = router;

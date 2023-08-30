@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 const squadronController = require("../controllers/squadronsController");
 
-router.post("/squadrons", squadronController.createSquadron);
-router.get("/squadrons", squadronController.getAllSquadrons);
-router.get("/squadrons/:id", squadronController.getSquadronById);
-router.put("/squadrons/:id", squadronController.updateSquadron);
-router.delete("/squadrons/:id", squadronController.deleteSquadron);
+router.post("/", squadronController.createSquadron);
+router.get("/", squadronController.getAllSquadrons);
+router.get("/:id", squadronController.getSquadronById);
+router.put("/:id", squadronController.updateSquadron);
+router.delete("/:id", squadronController.deleteSquadron);
 
 module.exports = router;

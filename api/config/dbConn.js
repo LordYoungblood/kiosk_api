@@ -13,22 +13,26 @@ const sequelize = new Sequelize(PG_DB_NAME, PG_DB_USERNAME, PG_DB_PASSWORD, {
   define: {
     timestamps: false,
   },
+  logging: false, // This will prevent Sequelize from logging every SQL query (optional, but can make console output cleaner)
 });
 
-(async () => {
+const connectToDatabase = async () => {
   let retries = 5;
   while (retries) {
     try {
       await sequelize.authenticate();
       console.log("Connected to database");
-      break;
+      return;
     } catch (err) {
-      console.log(err);
+      console.error("Unable to connect to database:", err);
       retries -= 1;
-      console.log(`retries left: ${retries}`);
+      console.log(`Retries left: ${retries}`);
       await new Promise((res) => setTimeout(res, 5000));
     }
   }
-})();
+  console.error("Failed to connect to database after multiple retries.");
+};
+
+connectToDatabase();
 
 module.exports = sequelize;
