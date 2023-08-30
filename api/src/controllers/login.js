@@ -32,7 +32,7 @@ const login = async (req, res) => {
         // "penis",
         path: 
         "/",
-        SameSite: none,
+        SameSite: "none",
         Secure: false,
       });
       console.log("res in login", res.cookie);
