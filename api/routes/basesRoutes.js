@@ -5,7 +5,7 @@ const baseController = require("../controllers/basesController");
 router.post("/", baseController.createBase);
 router.get("/", baseController.getAllBases);
 router.get("/:id", baseController.getBaseById);
-router.put("/:id", baseController.updateBase);
+router.patch("/:id", baseController.updateBase);
 router.delete("/:id", baseController.deleteBase);
 
 module.exports = router;
