@@ -3,46 +3,28 @@ const sequelize = require("../config/dbConn");
 const Base = require("./bases");
 const Squadron = require("./squadrons");
 
-class Visitor extends Model {}
+class User extends Model {}
 
-Visitor.init(
+User.init(
   {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
-    first_name: {
+    username: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+      unique: true,
+    },
+    password: {
       type: DataTypes.STRING(255),
       allowNull: false,
     },
-    last_name: {
-      type: DataTypes.STRING(255),
+    is_admin: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
-    },
-    drivers_license: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
-    },
-    plate: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
-    },
-    make: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
-    },
-    model: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
-    },
-    state: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
-    },
-    visit_date: {
-      type: DataTypes.DATE,
-      allowNull: false,
+      defaultValue: false,
     },
     base_id: {
       type: DataTypes.UUID,
@@ -62,10 +44,10 @@ Visitor.init(
   },
   {
     sequelize,
-    modelName: "Visitor",
-    tableName: "visitors",
+    modelName: "User",
+    tableName: "users",
     timestamps: false,
   }
 );
 
-module.exports = Visitor;
+module.exports = User;

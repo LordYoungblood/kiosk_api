@@ -1,61 +1,74 @@
-const client = require("../config/dbConn");
+const User = require("../model/users");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 
-exports.getUsers = async (req, res) => {
+exports.createUser = async (req, res) => {
   try {
-    const result = await client.query("SELECT * FROM users");
-    res.json(result.rows);
-  } catch (err) {
-    console.error("Get Users Error:", err.message);
-    res.status(500).send("Server error");
+    const { username, password } = req.body;
+    const existingUser = await User.findOne({ where: { username } });
+
+    if (existingUser) {
+      return res.status(400).json({ error: "Username already in use." });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const user = await User.create({ ...req.body, password: hashedPassword });
+    res.status(201).json({ ...user.dataValues, password: undefined });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
 };
 
 exports.getAllUsers = async (req, res) => {
   try {
-    const result = await client.query("SELECT * FROM users");
-    res.json(result.rows);
-  } catch (err) {
-    console.error("Get All Users Error:", err.message);
-    res.status(500).send("Server error");
+    const users = await User.findAll();
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 };
 
-exports.getUser = async (req, res) => {
-  const { id } = req.params;
+exports.getUserById = async (req, res) => {
   try {
-    const user = await client.query(`SELECT * FROM users WHERE id = ${id}`);
-    res.json(user.rows[0]);
-  } catch (err) {
-    console.error(`Get User Error (ID: ${id}):`, err.message);
-    res.status(500).send("Server error");
+    const user = await User.findByPk(req.params.id);
+    if (user) {
+      res.status(200).json(user);
+    } else {
+      res.status(404).json({ error: "User not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 };
 
 exports.updateUser = async (req, res) => {
-  const { id } = req.params;
-  const { user_name, password } = req.body;
   try {
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-    const updatedUser = await client.query(
-      `UPDATE users SET user_name = '${user_name}', password = '${hashedPassword}' WHERE id = ${id} RETURNING *`
-    );
-    res.json(updatedUser.rows[0]);
-  } catch (err) {
-    console.error(`Update User Error (ID: ${id}):`, err.message);
-    res.status(500).send("Server error");
+    const [updated] = await User.update(req.body, {
+      where: { id: req.params.id },
+    });
+    if (updated) {
+      const updatedUser = await User.findByPk(req.params.id);
+      res.status(200).json(updatedUser);
+    } else {
+      res.status(404).json({ error: "User not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 };
 
 exports.deleteUser = async (req, res) => {
-  const { id } = req.params;
   try {
-    await client.query(`DELETE FROM users WHERE id = ${id}`);
-    res.json({ message: "User deleted successfully" });
-  } catch (err) {
-    console.error(`Delete User Error (ID: ${id}):`, err.message);
-    res.status(500).send("Server error");
+    const deleted = await User.destroy({
+      where: { id: req.params.id },
+    });
+    if (deleted) {
+      res.status(204).send("User deleted");
+    } else {
+      res.status(404).json({ error: "User not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 };
