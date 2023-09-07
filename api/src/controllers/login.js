@@ -53,7 +53,7 @@ const register = async (req, res) => {
     if (!user_name || !password) {
       return res.status(400).json({ message: "Please enter all fields" });
     }
-    // console.log("USER_NAME", user_name)
+    // console.log("USER_NAME!", user_name)
     const user = await client.query(
       `INSERT INTO users (user_name, password, admin, user_base) VALUES ('${user_name}', '${password}', '${admin}', '{
         "name": ${stringBase}
