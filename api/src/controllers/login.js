@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 //----- user_name: password: admin: true/false -----=------------------------------//
 const login = async (req, res) => {
   const { user_name, password } = req.body;
+  // console.log("HITTING ADD")
 // console.log("req.body in loging", req.body)
   try {
     const user = await client.query(
@@ -23,19 +24,7 @@ const login = async (req, res) => {
         expiresIn: process.env.JWT_LIFETIME,
       });
       res.setHeader("Authorization", `Bearer ${token}`);
-      res.cookie("auth", token, {
-        maxAge: 28800000,
-        domain:
-        // "localhost",
-        "http://kioskapp-env.eba-umdxbzym.us-gov-west-1.elasticbeanstalk.com", 
-        
-        // "penis",
-        path: 
-        "/",
-        SameSite: "None",
-        Secure: false,
-      });
-      console.log("res in login", res.cookie);
+      console.log("Welcome to Kiosk App!");
 // console.log("cookie value", cookieValue)
       // console.log("req.body in login", req.body)
       res.status(200).json({
@@ -50,14 +39,11 @@ const login = async (req, res) => {
   }
 };
 
-//----- Register functionallity with bcrypt *** must register with postman --------//
-//----- user_name: password: admin: true/false -----=------------------------------//
+//----- Register functionallity with bcrypt *** must register with postman --------////
+//----- user_name: password: admin: true/false -----=------------------------------////
 const register = async (req, res) => {
   const objBase = req.body.user_base;
   const stringBase = JSON.stringify(req.body.user_base);
-  console.log("stringBase from register", stringBase);
-  console.log(req.body);
-
   if (req.body.admin === undefined) {
     req.body.admin = false;
   }
@@ -67,22 +53,26 @@ const register = async (req, res) => {
     if (!user_name || !password) {
       return res.status(400).json({ message: "Please enter all fields" });
     }
+    // console.log("USER_NAME", user_name)
     const user = await client.query(
-      `INSERT INTO users (user_name, password, admin, user_base) VALUES ('${user_name}', '${password}', '${admin}', '${stringBase}') RETURNING *`
+      `INSERT INTO users (user_name, password, admin, user_base) VALUES ('${user_name}', '${password}', '${admin}', '{
+        "name": ${stringBase}
+      }')`
     );
+    
 
-    await client.query(`CREATE TABLE IF NOT EXISTS ${objBase.name}
-            (
-              id uuid NOT NULL DEFAULT uuid_generate_v4(),
-              first_name character varying(255) COLLATE pg_catalog."default",
-              last_name character varying(255) COLLATE pg_catalog."default",
-              drivers_license character varying(255) COLLATE pg_catalog."default",
-              plate character varying(255) COLLATE pg_catalog."default",
-              make character varying(255) COLLATE pg_catalog."default",
-              model character varying(255) COLLATE pg_catalog."default",
-              state character varying COLLATE pg_catalog."default",
-              date timestamp
-            );`);
+    // await client.query(`CREATE TABLE IF NOT EXISTS ${objBase.name}
+    //         (
+    //           id uuid NOT NULL DEFAULT uuid_generate_v4(),
+    //           first_name character varying(255) COLLATE pg_catalog."default",
+    //           last_name character varying(255) COLLATE pg_catalog."default",
+    //           drivers_license character varying(255) COLLATE pg_catalog."default",
+    //           plate character varying(255) COLLATE pg_catalog."default",
+    //           make character varying(255) COLLATE pg_catalog."default",
+    //           model character varying(255) COLLATE pg_catalog."default",
+    //           state character varying COLLATE pg_catalog."default",
+    //           date timestamp
+    //         );`);
 
     res.status(200).send({ user_name, admin });
   } catch (err) {
@@ -91,7 +81,7 @@ const register = async (req, res) => {
   }
 };
 
-//logout/////////////////////////////////////////////////////////////////////////
+//logout///////////////////////////////////////////////////////////////////
 const logout = async (req, res) => {
   res.clearCookie("auth");
   res.status(200).json({ message: "success" });
