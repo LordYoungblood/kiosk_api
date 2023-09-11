@@ -26,6 +26,7 @@ const addVehicle = async (req, res) => {
     model: req.body.model,
     state: req.body.state,
     date: req.body.date,
+    delivery_location: req.body.delivery_location,
   };
 
   console.log("VEHICLE from vehicles", vehicle)
@@ -33,7 +34,7 @@ const addVehicle = async (req, res) => {
 
   try {
     let result = await client.query(
-      `INSERT INTO ${base} (first_name, last_name, drivers_license, plate, make, model, state, date) values('${vehicle.first_name}', '${vehicle.last_name}', '${vehicle.drivers_license}', '${vehicle.plate}', '${vehicle.make}', '${vehicle.model}', '${vehicle.state}', '${vehicle.date}')`
+      `INSERT INTO ${base} (first_name, last_name, drivers_license, plate, make, model, state, date, delivery_location) values('${vehicle.first_name}', '${vehicle.last_name}', '${vehicle.drivers_license}', '${vehicle.plate}', '${vehicle.make}', '${vehicle.model}', '${vehicle.state}', '${vehicle.date}', '${vehicle.delivery_location}')`
     );
 
     res.status(200).send(result);
